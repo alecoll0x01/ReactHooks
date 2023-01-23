@@ -1,23 +1,37 @@
-import React from "react";
-import useAuth from "../hooks/loginHook";
+import { React, useState } from "react";
+import useAuth from "../hooks/useAuth";
 
-export default () => {
-    const { login } = useAuth();
+function LoginForm() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const { data, error, loading, login } = useAuth('https://your-api-url.com/login');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const { email, password } = event.target.elements;
-
-        // Aqui você pode usar essas informações para fazer uma requisição para sua API de autenticação
-        // e obter um token de acesso
-        // e depois chamar login(token)
+    function handleSubmit(e) {
+        e.preventDefault();
+        login(username, password);
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <input name="email" type="email" placeholder="Email" required />
-            <input name="password" type="password" placeholder="Password" required />
-            <button type="submit">Login</button>
+            <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+            />
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+            />
+            <button type="submit" disabled={loading}>
+                Login
+            </button>
+            {error && <div>{error.message}</div>}
+            {data && <div>{data.message}</div>}
         </form>
     );
 }
+
+export default LoginForm
