@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Primeiro from './components/Primerio'
+import MyForm from './components/checkboxForms'
 import './index.css'
 
 
-ReactDOM.render(<Primeiro></Primeiro>, document.getElementById('root'))
+ReactDOM.render(<MyForm></MyForm>, document.getElementById('root'))
