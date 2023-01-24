@@ -1,64 +1,56 @@
-import { FormControl, FormControlLabel } from '@material-ui/core';
-import Checkbox from '@material-ui/core/Checkbox';
-import React, { useState } from 'react';
+import { Checkbox, FormControl, FormControlLabel } from "@material-ui/core";
+import React, { useState } from "react";
 
-const checkboxes = [
-  { label: "Label 1", value: "value1" },
-  { label: "Label 2", value: "value2" },
-  { label: "Label 3", value: "value3" },
-  { label: "Label 4", value: "value4" },
-  { label: "Label 5", value: "value5" },
-  { label: "Label 6", value: "value6" },
-  { label: "Label 7", value: "value7" },
-  { label: "Label 8", value: "value8" },
-  { label: "Label 9", value: "value9" },
-  { label: "Label 10", value: "value10" }
-]
+const CheckboxForm = () => {
+  const [checkboxValues, setCheckboxValues] = useState([
+    { label: "Label 1", value: false },
+    { label: "Label 2", value: false },
+    { label: "Label 3", value: false },
+    { label: "Label 4", value: false },
+    { label: "Label 5", value: false },
+    { label: "Label 6", value: false },
+    { label: "Label 7", value: false },
+    { label: "Label 8", value: false },
+    { label: "Label 9", value: false },
+    { label: "Label 10", value: false }
+  ]);
 
-function MyForm() {
-  const [formData, setFormData] = useState({
-    checkboxes: Array(10).fill(false),
-  });
-
-  const handleCheckboxChange = (e) => {
-    const updatedCheckboxes = [...formData.checkboxes];
-    updatedCheckboxes[e.target.name] = e.target.checked;
-    setFormData({ ...formData, checkboxes: updatedCheckboxes });
+  const handleChange = (event) => {
+    const updatedCheckboxes = checkboxValues.map((checkbox) => {
+      if (checkbox.label === event.target.name) {
+        return { ...checkbox, value: event.target.checked };
+      }
+      return checkbox;
+    });
+    setCheckboxValues(updatedCheckboxes);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let selectedCheckbox = formData.checkboxes.map((checkbox, index) => {
-      if (checkbox) return checkboxes[index];
-    });
-    let selectedItems = selectedCheckbox.filter(Boolean);
-    let postData = {
-      selectedCheckboxes: selectedItems
-    };
-    // send postData to API here
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Make API call here with checkboxValues as the payload
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <FormControl>
-        {checkboxes.map((checkbox, index) => (
+        {checkboxValues.map((checkbox, index) => (
           <FormControlLabel
             key={index}
             control={
               <Checkbox
-                name={index}
-                checked={formData.checkboxes[index]}
-                onChange={handleCheckboxChange}
-                value={checkbox.value}
+                checked={checkbox.value}
+                onChange={handleChange}
+                name={checkbox.label}
+                value={checkbox.label}
               />
             }
             label={checkbox.label}
           />
         ))}
-        <button type="submit">Submit</button>
       </FormControl>
+      <button type="submit">Submit</button>
     </form>
   );
-}
+};
 
-export default MyForm;
+export default CheckboxForm;
