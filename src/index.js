@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import CheckboxForm from './components/checkboxForms'
+import MusicPlayer from './components/musicPlayer'
 import './index.css'
 
 
-ReactDOM.render(<CheckboxForm></CheckboxForm>, document.getElementById('root'))
+ReactDOM.render(<MusicPlayer></MusicPlayer>, document.getElementById('root'))
