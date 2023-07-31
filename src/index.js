@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import MusicPlayer from './components/musicPlayer'
+import LoginComponent from './components/LoginComponent'
 import './index.css'
 
 
-ReactDOM.render(<MusicPlayer></MusicPlayer>, document.getElementById('root'))
+ReactDOM.render(<LoginComponent></LoginComponent>, document.getElementById('root'))
